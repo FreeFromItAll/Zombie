@@ -1,2 +1,2 @@
-# Zombie
-Zombie Script Interpreter
+# Zombie Script Interpreter
+A Lisp inspired language with a more familiar syntax
