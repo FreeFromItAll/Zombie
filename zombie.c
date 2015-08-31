@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 
-
+#include "zs_parser.h"
 
 #define CHUNK_SIZE 8
 #define MAX_BUF_SIZE 1024
@@ -38,6 +38,38 @@ done:
 	*len = (long)(c - s);
 }
 
+static void eval(ast_t *t, env_t *e) {
+	switch(t->type) {
+		case AST_GENERIC:
+			if(strstr("expr", t->tag)) {
+
+			}
+			break;
+
+		case AST_SYMBOL:
+
+			break;
+
+		case AST_TERMINAL:
+			switch(t->tk) {
+				case T_NUMBER:
+				case T_STRING:
+					break;
+			}
+			break;
+		case AST_OP:
+			switch(t->tk) {
+				case '+':
+				case '-':
+				case '*':
+				case '/':
+				case '^':
+					break;
+			}
+			break;
+	}
+}
+
 int main(const int argc, const char **argv)
 {
 	const char br[] = "--------------------------------------\n";
@@ -48,10 +80,20 @@ int main(const int argc, const char **argv)
 	long len;
 	char* buf;
 
-	printf("> ");
-	_getline(&buf, &len);
+	env_t env;
+	ast_t ast;
 
-	puts(buf);
+	while(1) {
+		printf("> ");
+		_getline(&buf, &len);
+
+		if(len == 1 && buf[0] == 'q')
+			break;
+
+		ast = parse("<stdin>", buf, len, pexpr);
+
+		eval(ast.leaf[0], env);		// ast.leaf[0] is the top <expr>
+	}
 
 	free(buf);
 
