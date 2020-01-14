@@ -1,2 +1,2 @@
 # Zombie Script Interpreter
-[currently broken] Writing an interpreter with recursive descent parsing and _ast_ construction with command line interactive mode.
+[currently broken] Interpreter with recursive descent parsing and _ast_ construction for custom *zombie* lang including an interactive command line mode.
